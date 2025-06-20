@@ -1,7 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <met<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
+  <title>Movie Reviews Carousel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 36px;
+      letter-spacing: 1px;
+    }
+
+    .movie-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .movie {
+      flex: 0 0 auto;
+      background: #fff;
+      color: #333;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .movie:hover {
+      transform: scale(1.05);
+    }
+
+    .movie img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .movie-content {
+      padding: 15px;
+    }
+
+    .movie h2 {
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+
+    .movie p {
+      font-size: 14px;
+      margin: 0 0 15px;
+      color: #555;
+    }
+
+    .movie a {
+      display: inline-block;
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .movie a:hover {
+      background: #0056b3;
+    }
+
+    /* Hide scrollbar */
+    .movie-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .movie-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Movie Reviews Carousel</h1>
+  <div class="movie-container" id="movie-list"></div>
+
+  <script>
+    // JSON data with more movies and nice images
+    const movies = [
+      {
+        "title": "The Shawshank Redemption",
+        "review": "A timeless story about hope and friendship.",
+        "image": "https://m.media-amazon.com/images/I/81QGQk1oJzL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt0111161/"
+      },
+      {
+        "title": "Inception",
+        "review": "A mind-bending thriller with stunning visuals.",
+        "image": "https://m.media-amazon.com/images/I/91G8AYPxyiL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt1375666/"
+      },
+      {
+        "title": "Interstellar",
+        "review": "A beautiful sci-fi epic exploring space and love.",
+        "image": "https://m.media-amazon.com/images/I/81iG7y5ouJL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt0816692/"
+      },
+      {
+        "title": "The Dark Knight",
+        "review": "A masterpiece in superhero and crime genres.",
+        "image": "https://m.media-amazon.com/images/I/71pVj9R1c8L._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt0468569/"
+      },
+      {
+        "title": "Avengers: Endgame",
+        "review": "An epic conclusion to the Infinity Saga.",
+        "image": "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt4154796/"
+      },
+      {
+        "title": "Parasite",
+        "review": "A brilliant social satire and thriller.",
+        "image": "https://m.media-amazon.com/images/I/81V%2BwEDeqbL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt6751668/"
+      },
+      {
+        "title": "Spider-Man: No Way Home",
+        "review": "An exciting multiverse adventure.",
+        "image": "https://m.media-amazon.com/images/I/71xZns1B0WL._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt10872600/"
+      },
+      {
+        "title": "Joker",
+        "review": "A dark and gripping character study.",
+        "image": "https://m.media-amazon.com/images/I/71xZGeX2-3L._AC_SY679_.jpg",
+        "link": "https://www.imdb.com/title/tt7286456/"
+      }
+    ];
+
+    const movieList = document.getElementById('movie-list');
+
+    movies.forEach(movie => {
+      const movieDiv = document.createElement('div');
+      movieDiv.className = 'movie';
+
+      const image = document.createElement('img');
+      image.src = movie.image;
+      image.alt = movie.title;
+
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'movie-content';
+
+      const title = document.createElement('h2');
+      title.textContent = movie.title;
+
+      const review = document.createElement('p');
+      review.textContent = movie.review;
+
+      const link = document.createElement('a');
+      link.href = movie.link;
+      link.target = "_blank";
+      link.textContent = "More Info";
+
+      contentDiv.appendChild(title);
+      contentDiv.appendChild(review);
+      contentDiv.appendChild(link);
+
+      movieDiv.appendChild(image);
+      movieDiv.appendChild(contentDiv);
+
+      movieList.appendChild(movieDiv);
+    });
+  </script>
+</body>
+</html>
+a charset="UTF-8" />
   <title>Movie Reviews with Images & Links</title>
   <style>
     body {
