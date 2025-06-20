@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <met<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
   <title>Movie Reviews Carousel</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #1e3c72, #2a5298);
+      background: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
     }
 
@@ -19,6 +17,7 @@
       margin: 40px 0 20px;
       font-size: 36px;
       letter-spacing: 1px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
     }
 
     .movie-container {
@@ -31,11 +30,11 @@
 
     .movie {
       flex: 0 0 auto;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.92);
       color: #333;
       border-radius: 10px;
       width: 250px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
       transition: transform 0.3s;
     }
 
@@ -56,14 +55,20 @@
     }
 
     .movie h2 {
-      font-size: 20px;
-      margin: 0 0 10px;
+      font-size: 18px;
+      margin: 0 0 8px;
     }
 
     .movie p {
-      font-size: 14px;
-      margin: 0 0 15px;
+      font-size: 12px;
+      margin: 0 0 12px;
       color: #555;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* max lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 3.6em; /* keeps consistent height even with short text */
     }
 
     .movie a {
@@ -71,8 +76,9 @@
       text-decoration: none;
       background: #007bff;
       color: #fff;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 5px;
+      font-size: 12px;
       transition: background 0.3s;
     }
 
@@ -81,14 +87,8 @@
     }
 
     /* Hide scrollbar */
-    .movie-container::-webkit-scrollbar {
-      display: none;
-    }
-
-    .movie-container {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    .movie-container::-webkit-scrollbar { display: none; }
+    .movie-container { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body>
@@ -96,202 +96,69 @@
   <div class="movie-container" id="movie-list"></div>
 
   <script>
-    // JSON data with more movies and nice images
     const movies = [
       {
-        "title": "The Shawshank Redemption",
-        "review": "A timeless story about hope and friendship.",
-        "image": "https://m.media-amazon.com/images/I/81QGQk1oJzL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt0111161/"
+        title: "The Shawshank Redemption",
+        review: "A timeless story about hope and friendship.",
+        image: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+        link: "https://www.imdb.com/title/tt0111161/"
       },
       {
-        "title": "Inception",
-        "review": "A mind-bending thriller with stunning visuals.",
-        "image": "https://m.media-amazon.com/images/I/91G8AYPxyiL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt1375666/"
+        title: "Inception",
+        review: "A mind-bending thriller with stunning visuals.",
+        image: "https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
+        link: "https://www.imdb.com/title/tt1375666/"
       },
       {
-        "title": "Interstellar",
-        "review": "A beautiful sci-fi epic exploring space and love.",
-        "image": "https://m.media-amazon.com/images/I/81iG7y5ouJL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt0816692/"
+        title: "Interstellar",
+        review: "A beautiful sci-fi epic exploring space and love.",
+        image: "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+        link: "https://www.imdb.com/title/tt0816692/"
       },
       {
-        "title": "The Dark Knight",
-        "review": "A masterpiece in superhero and crime genres.",
-        "image": "https://m.media-amazon.com/images/I/71pVj9R1c8L._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt0468569/"
+        title: "The Dark Knight",
+        review: "A masterpiece in superhero and crime genres.",
+        image: "https://image.tmdb.org/t/p/w500/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg",
+        link: "https://www.imdb.com/title/tt0468569/"
       },
       {
-        "title": "Avengers: Endgame",
-        "review": "An epic conclusion to the Infinity Saga.",
-        "image": "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt4154796/"
+        title: "Avengers: Endgame",
+        review: "An epic conclusion to the Infinity Saga.",
+        image: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+        link: "https://www.imdb.com/title/tt4154796/"
       },
       {
-        "title": "Parasite",
-        "review": "A brilliant social satire and thriller.",
-        "image": "https://m.media-amazon.com/images/I/81V%2BwEDeqbL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt6751668/"
+        title: "Parasite",
+        review: "A brilliant social satire and thriller.",
+        image: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+        link: "https://www.imdb.com/title/tt6751668/"
       },
       {
-        "title": "Spider-Man: No Way Home",
-        "review": "An exciting multiverse adventure.",
-        "image": "https://m.media-amazon.com/images/I/71xZns1B0WL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt10872600/"
+        title: "Spider-Man: No Way Home",
+        review: "An exciting multiverse adventure.",
+        image: "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        link: "https://www.imdb.com/title/tt10872600/"
       },
       {
-        "title": "Joker",
-        "review": "A dark and gripping character study.",
-        "image": "https://m.media-amazon.com/images/I/71xZGeX2-3L._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt7286456/"
+        title: "Joker",
+        review: "A dark and gripping character study.",
+        image: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+        link: "https://www.imdb.com/title/tt7286456/"
       }
     ];
 
-    const movieList = document.getElementById('movie-list');
-
+    const movieList = document.getElementById("movie-list");
     movies.forEach(movie => {
-      const movieDiv = document.createElement('div');
-      movieDiv.className = 'movie';
-
-      const image = document.createElement('img');
-      image.src = movie.image;
-      image.alt = movie.title;
-
-      const contentDiv = document.createElement('div');
-      contentDiv.className = 'movie-content';
-
-      const title = document.createElement('h2');
-      title.textContent = movie.title;
-
-      const review = document.createElement('p');
-      review.textContent = movie.review;
-
-      const link = document.createElement('a');
-      link.href = movie.link;
-      link.target = "_blank";
-      link.textContent = "More Info";
-
-      contentDiv.appendChild(title);
-      contentDiv.appendChild(review);
-      contentDiv.appendChild(link);
-
-      movieDiv.appendChild(image);
-      movieDiv.appendChild(contentDiv);
-
-      movieList.appendChild(movieDiv);
-    });
-  </script>
-</body>
-</html>
-a charset="UTF-8" />
-  <title>Movie Reviews with Images & Links</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    .movie {
-      background: #fff;
-      border-radius: 8px;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-
-    .movie img {
-      max-width: 100%;
-      border-radius: 5px;
-    }
-
-    .movie h2 {
-      margin-top: 15px;
-      color: #007BFF;
-    }
-
-    .movie p {
-      color: #555;
-    }
-
-    .movie a {
-      display: inline-block;
-      margin-top: 10px;
-      background: #28a745;
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 15px;
-      border-radius: 4px;
-    }
-
-    .movie a:hover {
-      background: #218838;
-    }
-  </style>
-</head>
-<body>
-  <h1>Movie Reviews with Images & Links</h1>
-  <div id="movie-list"></div>
-
-  <script>
-    // JSON data with images and links
-    const movies = [
-      {
-        "title": "The Shawshank Redemption",
-        "review": "A timeless story about hope and friendship. Must watch!",
-        "image": "https://m.media-amazon.com/images/I/81aA7hEEykL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt0111161/"
-      },
-      {
-        "title": "Inception",
-        "review": "A mind-bending thriller with stunning visuals and plot twists.",
-        "image": "https://m.media-amazon.com/images/I/51xJb2w9B2L._AC_.jpg",
-        "link": "https://www.imdb.com/title/tt1375666/"
-      },
-      {
-        "title": "Interstellar",
-        "review": "A beautiful sci-fi epic exploring space, time, and love.",
-        "image": "https://m.media-amazon.com/images/I/71y7sAP7ZSL._AC_SY679_.jpg",
-        "link": "https://www.imdb.com/title/tt0816692/"
-      }
-    ];
-
-    // Display movies
-    const movieList = document.getElementById('movie-list');
-
-    movies.forEach(movie => {
-      const movieDiv = document.createElement('div');
-      movieDiv.className = 'movie';
-
-      const image = document.createElement('img');
-      image.src = movie.image;
-      image.alt = movie.title;
-
-      const title = document.createElement('h2');
-      title.textContent = movie.title;
-
-      const review = document.createElement('p');
-      review.textContent = movie.review;
-
-      const link = document.createElement('a');
-      link.href = movie.link;
-      link.target = "_blank";
-      link.textContent = "More Info";
-
-      movieDiv.appendChild(image);
-      movieDiv.appendChild(title);
-      movieDiv.appendChild(review);
-      movieDiv.appendChild(link);
-
-      movieList.appendChild(movieDiv);
+      const card = document.createElement("div");
+      card.className = "movie";
+      card.innerHTML = `
+        <img src="${movie.image}" alt="${movie.title}">
+        <div class="movie-content">
+          <h2>${movie.title}</h2>
+          <p>${movie.review}</p>
+          <a href="${movie.link}" target="_blank">More Info</a>
+        </div>`;
+      movieList.appendChild(card);
     });
   </script>
 </body>
